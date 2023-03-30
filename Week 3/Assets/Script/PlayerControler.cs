@@ -13,6 +13,8 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private int Cherry = 0;
     [SerializeField] private TextMeshProUGUI TextNummber;
     [SerializeField] private float HurtForce = 10f;
+    [SerializeField] private AudioSource Footstep;
+    [SerializeField] private AudioSource CherrySound;
 
     private Collider2D Collider2D;
     private enum State { Idle, IsRun, IsJump, Falling, Hurt }
@@ -40,6 +42,7 @@ public class PlayerControler : MonoBehaviour
     {
         if (collision.tag == "Collectible")
         {
+            CherrySound.Play();
             Destroy(collision.gameObject);
             Cherry++;
             TextNummber.text = Cherry.ToString();
@@ -50,10 +53,10 @@ public class PlayerControler : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Frog frog = other.gameObject.GetComponent<Frog>();
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (state == State.Falling)
             {
-                frog.Death();
+                enemy.Death();
                 Jump();
             }
             else if (state != State.Falling)
@@ -133,5 +136,10 @@ public class PlayerControler : MonoBehaviour
         {
             state = State.Idle;
         }
+    }
+
+    private void FootstepSound()
+    {
+        Footstep.Play();
     }
 }

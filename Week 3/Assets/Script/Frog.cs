@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Frog : MonoBehaviour
+public class Frog : Enemy
 {
     [SerializeField] private float LeftWaypoint;
     [SerializeField] private float RightWaypoint;
@@ -14,12 +14,6 @@ public class Frog : MonoBehaviour
     
 
     private bool FaceLeft = true;
-    private Animator animator;
-
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
 
     private void Update()
     {
@@ -85,16 +79,6 @@ public class Frog : MonoBehaviour
                 FaceLeft = true;
             }
         }
-    }
-
-    public void Death()
-    {
-        animator.SetTrigger("Death");
-    }
-
-    private void Explode()
-    {
-        Destroy(this.gameObject);
     }
 }
 

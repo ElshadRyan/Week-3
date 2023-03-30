@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected Animator animator;
+    protected AudioSource DeathSound;
+
+    protected virtual void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        DeathSound = GetComponent<AudioSource>();
+    }
+    public void Death()
+    {
+        animator.SetTrigger("Death");
+        DeathSound.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Explode()
     {
-        
+        Destroy(this.gameObject);
     }
 }
